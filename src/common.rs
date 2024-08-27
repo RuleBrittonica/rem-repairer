@@ -14,6 +14,7 @@ use syn::{
     ImplItemMethod, ItemFn, Lifetime, PredicateLifetime, ReturnType, Signature, TraitItemMethod,
     TypeReference, WhereClause, WherePredicate,
 };
+use std::fmt::{self, Debug, Formatter};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////     REPAIR HELPERS     ////////////////////////////////////////////
@@ -30,6 +31,17 @@ pub trait RepairSystem {
     fn repair_project(&self, src_path: &str, manifest_path: &str, fn_name: &str) -> RepairResult;
     fn repair_file(&self, file_name: &str, new_file_name: &str) -> RepairResult;
     fn repair_function(&self, file_name: &str, new_file_name: &str, fn_name: &str) -> RepairResult;
+}
+
+// Wrapper for RepairSystem trait objects that implements Debug
+pub struct DebugRepairSystem<'a>(pub &'a dyn RepairSystem);
+
+impl<'a> Debug for DebugRepairSystem<'a> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        f.debug_struct("RepairSystem")
+            .field("name", &self.0.name())
+            .finish()
+    }
 }
 
 #[derive(Serialize, Deserialize, Debug)]
