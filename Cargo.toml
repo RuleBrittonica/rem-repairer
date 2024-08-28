@@ -1,8 +1,8 @@
 [package]
 name = "rem-repairer"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
-authors = ["Sewen Thy <me@sewenthy.dev>"]
+authors = ["Sewen Thy <me@sewenthy.dev>", "Matthew Britton <matt.britton@anu.edu.au>"]
 license = "MIT"
 description = "Lifetime repairer for Rusty Extraction Maestro"
 repository = "https://github.com/verse-lab/rustic-cat"
@@ -21,4 +21,4 @@ proc-macro2 = { version = "1.0", features = ["span-locations"]}
 quote = "1.0"
 rem-utils = { git = "https://github.com/RuleBrittonica/rem-utils.git", branch = "master" }
 log = "0.4.17"
-env_logger = "0.10.0"
+env_logger = "0.11.5"
