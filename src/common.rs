@@ -22,7 +22,9 @@ use std::fmt::{self, Debug, Formatter};
 pub struct RepairResult {
     pub success: bool,
     pub repair_count: i32,
+    #[allow(dead_code)]
     pub has_non_elidible_lifetime: bool,
+    #[allow(dead_code)]
     pub has_struct_lt: bool,
 }
 
@@ -596,6 +598,7 @@ impl FnLifetimeElider<'_> {
 }
 
 pub struct ElideLifetimeResult {
+    #[allow(dead_code)]
     pub success: bool,
     pub annotations_left: bool,
     pub has_struct_lt: bool,
