@@ -14,7 +14,17 @@ use syn::{
     ImplItemMethod, ItemFn, Lifetime, PredicateLifetime, ReturnType, Signature, TraitItemMethod,
     TypeReference, WhereClause, WherePredicate,
 };
-use std::fmt::{self, Debug, Formatter};
+use std::fmt::{
+    self,
+    Debug,
+    Formatter
+};
+
+pub struct RepairerInput {
+    pub input_code: String,
+    pub fn_name: String,
+    pub repair_systems: Vec<Box<dyn RepairSystem>>,
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////     REPAIR HELPERS     ////////////////////////////////////////////
