@@ -26,6 +26,16 @@ pub struct RepairerInput {
     pub repair_systems: Vec<Box<dyn RepairSystem>>,
 }
 
+impl Clone for RepairerInput {
+    fn clone(&self) -> Self {
+        Self {
+            input_code: self.input_code.clone(),
+            fn_name: self.fn_name.clone(),
+            repair_systems: self.repair_systems.iter().map(|system| system.clone()).collect(),
+        }
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////     REPAIR HELPERS     ////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -38,11 +48,18 @@ pub struct RepairResult {
     pub has_struct_lt: bool,
 }
 
-pub trait RepairSystem {
+pub trait RepairSystem: std::fmt::Debug {
     fn name(&self) -> &str;
     fn repair_project(&self, src_path: &str, manifest_path: &str, fn_name: &str) -> RepairResult;
     fn repair_file(&self, file_name: &str, new_file_name: &str) -> RepairResult;
     fn repair_function(&self, file_name: &str, new_file_name: &str, fn_name: &str) -> RepairResult;
+    fn clone_box(&self) -> Box<dyn RepairSystem>;
+}
+
+impl Clone for Box<dyn RepairSystem> {
+    fn clone(&self) -> Box<dyn RepairSystem> {
+        self.clone_box()
+    }
 }
 
 // Wrapper for RepairSystem trait objects that implements Debug

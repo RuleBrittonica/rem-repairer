@@ -5,6 +5,7 @@ use crate::common::{
 };
 use rem_utils::compile_file;
 
+#[derive(Debug, Clone)]
 pub struct Repairer {}
 
 impl RepairSystem for Repairer {
@@ -42,5 +43,9 @@ impl RepairSystem for Repairer {
         };
 
         repair_iteration(&mut compile_cmd, &process_errors, true, None)
+    }
+
+    fn clone_box(&self) -> Box<dyn RepairSystem> {
+        Box::new((*self).clone())
     }
 }

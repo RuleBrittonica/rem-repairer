@@ -13,6 +13,7 @@ use crate::common::{
 use crate::repair_lifetime_simple;
 use rem_utils::{check_project, compile_file, format_source};
 
+#[derive(Debug, Clone)]
 pub struct Repairer {}
 
 impl RepairSystem for Repairer {
@@ -88,6 +89,10 @@ impl RepairSystem for Repairer {
             }
             result => result,
         }
+    }
+
+    fn clone_box(&self) -> Box<dyn RepairSystem> {
+        Box::new((*self).clone())
     }
 }
 

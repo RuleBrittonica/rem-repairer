@@ -4,6 +4,7 @@ use rem_utils::compile_file;
 use std::collections::HashSet;
 use std::fs;
 
+#[derive(Debug, Clone)]
 pub struct Repairer {}
 
 impl RepairSystem for Repairer {
@@ -55,5 +56,9 @@ impl RepairSystem for Repairer {
 
     fn repair_function(&self, file_name: &str, new_file_name: &str, _: &str) -> RepairResult {
         self.repair_file(file_name, new_file_name)
+    }
+
+    fn clone_box(&self) -> Box<dyn RepairSystem> {
+        Box::new((*self).clone())
     }
 }
